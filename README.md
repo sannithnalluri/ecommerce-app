@@ -8,9 +8,6 @@ Welcome to the **MyStore Checkout Simulation** repository! This project is a sim
 - [Clone the Repository](#clone-the-repository)
 - [Install Dependencies](#install-dependencies)
 - [Run the Application](#run-the-application)
-- [Usage](#usage)
-- [Technologies Used](#technologies-used)
-- [License](#license)
 
 ## Prerequisites
 
