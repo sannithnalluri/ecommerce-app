@@ -12,16 +12,20 @@ export default function Home() {
   const [productsPerPage] = useState(6); // Show 6 products per page
   const [totalProducts, setTotalProducts] = useState(0);
 
-  const fetchProducts = async (page) => {
-    try {
-      const response = await fetch(`https://fakestoreapi.com/products`);
-      const data = await response.json();
-      setTotalProducts(data.length); // Total number of products for pagination
-      setProducts(data.slice((page - 1) * productsPerPage, page * productsPerPage)); // Paginate data
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+  useEffect(() => {
+    const fetchProducts = async (page) => {
+      try {
+        const response = await fetch(`https://fakestoreapi.com/products`);
+        const data = await response.json();
+        setTotalProducts(data.length); // Total number of products for pagination
+        setProducts(data.slice((page - 1) * productsPerPage, page * productsPerPage)); // Paginate data
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchProducts(currentPage);
+  }, [currentPage, productsPerPage]);
 
   // Check if a product is already in the cart
   const isProductInCart = (productId) => {
@@ -36,10 +40,6 @@ export default function Home() {
       localStorage.setItem('cart', JSON.stringify(updatedCart)); // Save to localStorage
     }
   };
-
-  useEffect(() => {
-    fetchProducts(currentPage);
-  }, [currentPage]);
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -85,12 +85,9 @@ export default function Home() {
                   Add to Cart
                 </button>
               ) : (
-                <div>
                 <button className="bg-gray-400 text-white w-full py-2 rounded-lg cursor-not-allowed">
                   Added to Cart
                 </button>
-            
-                </div>
               )}
             </div>
           </div>
